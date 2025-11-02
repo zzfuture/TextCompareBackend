@@ -23,24 +23,17 @@ public static class CompareService
         }
         else
         {
-            var maxLength =  Math.Max(text1.Length, text2.Length); // Calculamos cual es el maximo que podemos iterar
-        
             GetShortAndLongText(text1, text2, out var shortText, out var longText);
         
             GetIndexesFromDifferentLengthText(
                 ref shortText, 
-                ref longText, 
-                ref maxLength, 
+                ref longText,
                 out var shortTextIndexes, 
                 out var longTextIndexes);
             
             differenceIndexes[0] = shortTextIndexes;
             differenceIndexes[1] = longTextIndexes;
         }
-        
-        
-
-        //differenceIndexes[1] = text2Indexes;
 
         return true;
     }
@@ -54,11 +47,9 @@ public static class CompareService
         text1Indexes =  new int[text1.Length]; // Array con index de caracteres con diferencia para text 1
         text2Indexes =  new int[text2.Length]; // Array con index de caracteres con diferencia para text 2
         
-        // Avanzamos con dos pointers, cuando una palabra no coincide avanzamos en ese texto
-        
         for (var i = 0; i < text1.Length; i++)
         {
-            if (text1[i].Equals(text2[i])) continue;
+            if (AreEqual(text1, text2)) continue;
 
             text1Indexes[i] = 1; // Marcamos la diferencia
             text2Indexes[i] = 1; // Marcamos la diferencia
@@ -67,14 +58,13 @@ public static class CompareService
     private static void GetIndexesFromDifferentLengthText(
         ref string shortText, 
         ref string longText, 
-        ref int maxLength,
         out int[] shortTextIndexes,
         out int[] longTextIndexes)
     {
         longTextIndexes =  new int[longText.Length];
         shortTextIndexes =  new int[shortText.Length];
         
-        for (var i = 0; i < maxLength; i++)
+        for (var i = 0; i < longText.Length; i++)
         {
             if (i > shortText.Length - 1)
             {
