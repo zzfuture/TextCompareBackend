@@ -49,7 +49,7 @@ public static class CompareService
         
         for (var i = 0; i < text1.Length; i++)
         {
-            if (AreEqual(text1, text2)) continue;
+            if (AreEqual(text1[i], text2[i])) continue;
 
             text1Indexes[i] = 1; // Marcamos la diferencia
             text2Indexes[i] = 1; // Marcamos la diferencia
